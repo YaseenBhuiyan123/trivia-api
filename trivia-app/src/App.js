@@ -64,11 +64,11 @@ export default function App() {
 
   return (
     
-    <div styles="text-align: center;">
+    <div style={{textAlign:'center'}}>
       <h1>Hey, Launch! 👋</h1>
       {questions.map((question) => (
         <div>
-          <h1 className={question.question}>{question.question}</h1>
+          <h3 className={question.question}>{question.question}</h3>
           {getAnswers(question).map((answer) => (
             <button id={answer} className={questions.indexOf(question)} onClick={()=>update(questions.indexOf(question), question.correct_answer, question.question, answer)}>{answer}</button>
           ))}
