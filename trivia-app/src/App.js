@@ -23,9 +23,9 @@ export default function App() {
     return answers;
   }
 
-  const update = (className, correct_answer) => {
+  const update = (className, correct_answer, question, answer) => {
     disableButtons(className);
-    changeColors(className, correct_answer);
+    changeColors(className, correct_answer, question, answer);
   }
 
   const disableButtons = (className) => {
@@ -35,12 +35,13 @@ export default function App() {
     }
   }
 
-  const changeColors = (className, correct_answer) => {
+  const changeColors = (className, correct_answer, question, answer) => {
     var elements = document.getElementsByClassName(className);    
     var correctElement = elements[0];
     var incorrectElements = [];
-    console.log(elements);
-    console.log(correct_answer);
+    var q = document.getElementsByClassName(question);
+    q = q[0];
+    console.log(q);
     for(var i=0; i<elements.length; i++){
       if(elements[i].innerHTML === correct_answer){
         correctElement = elements[i];
@@ -53,17 +54,23 @@ export default function App() {
     for(var i=0; i<incorrectElements.length; i++){
       incorrectElements[i].style.backgroundColor = "red";
     }
+    if(answer === correct_answer){
+      q.style.color = "green";
+    }
+    else{
+      q.style.color = "red";
+    }
   }
 
   return (
     
-    <div>
+    <div styles="text-align: center;">
       <h1>Hey, Launch! 👋</h1>
       {questions.map((question) => (
         <div>
-          <h1>{question.question}</h1>
+          <h1 className={question.question}>{question.question}</h1>
           {getAnswers(question).map((answer) => (
-            <button className={questions.indexOf(question)} onClick={()=>update(questions.indexOf(question), question.correct_answer)}>{answer}</button>
+            <button id={answer} className={questions.indexOf(question)} onClick={()=>update(questions.indexOf(question), question.correct_answer, question.question, answer)}>{answer}</button>
           ))}
         </div>
       ))}
